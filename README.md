@@ -5,6 +5,7 @@ It uses logistic regression to label messages as Spam or Not Spam.
 
 ## Project Structure
 
+```
 spam-email-filter/
 ├── spam.csv             # Dataset (tab-separated)
 ├── train_model.py       # Trains model and vectorizer
@@ -13,6 +14,7 @@ spam-email-filter/
 ├── vectorizer.pkl       # Trained vectorizer (saved after training)
 ├── .gitignore           # Files to exclude from Git
 └── README.md            # Project overview
+```
 
 ## How to Use
 
