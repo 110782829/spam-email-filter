@@ -1,77 +1,90 @@
-# Spam Email Filter
+# Spam Email Filter (v2.0)
 
-A simple command-line spam message classifier built in Python using scikit-learn.
-It uses logistic regression to label messages as Spam or Not Spam.
+A simple web-based spam message classifier built in Python using scikit-learn and Streamlit.  
+It uses logistic regression to label messages as **Spam** or **Not Spam**, with an adjustable probability threshold, and provides both a CLI and a web app interface.
 
 ## Project Structure
 
 ```
 spam-email-filter/
-├── spam.csv             # Dataset (tab-separated)
-├── train_model.py       # Trains model and vectorizer
-├── spam_filter.py       # CLI tool for message classification
-├── spam_model.pkl       # Trained model (saved after training)
-├── vectorizer.pkl       # Trained vectorizer (saved after training)
-├── .gitignore           # Files to exclude from Git
-└── README.md            # Project overview
+├── spam.csv # Dataset (tab-separated)
+├── train_model.py # Trains model and vectorizer
+├── spam_filter.py # CLI tool with adjustable threshold
+├── eval_threshold.py # Script to benchmark recall vs. threshold
+├── app.py # Streamlit web application
+├── requirements.txt # Python dependencies
+├── spam_model.pkl # Trained model
+├── vectorizer.pkl # Trained vectorizer
+├── .gitignore # Files to exclude from Git
+└── README.md # Project overview
 ```
 
 
-## How to Use
+## Installation
 
-### 1. Install dependencies
+1. Clone the repository:
 
-Make sure you have Python 3.7+ and install the required libraries:
+    git clone https://github.com/110782829/spam-email-filter.git  
+    cd spam-email-filter
 
-    pip install pandas scikit-learn joblib
+2. (Optional) Create and activate a virtual environment:
 
-### 2. Train the model
+    python -m venv venv  
+    source venv/bin/activate   # macOS/Linux  
+    venv\Scripts\activate      # Windows
 
-Run the following command:
+3. Install dependencies:
+
+    pip install -r requirements.txt
+
+## Training the Model
+
+Run:
 
     python train_model.py
 
-This will:
-- Load and clean the dataset
-- Train a logistic regression classifier
-- Save the model and vectorizer to disk
+This will load and clean the dataset, train a logistic regression model, and save the `spam_model.pkl` and `vectorizer.pkl` files.
 
-### 3. Run the spam filter from the command line
+## Command-Line Interface
 
-By default, the script labels as spam if the model probability is ≥ 0.5:
+Use the CLI to classify a single message:
 
-    python spam_filter.py "Congratulations! You've won a free prize!"
+    python spam_filter.py "Your message here"
 
-Expected output:
+By default, a message is labeled **Spam** if its predicted probability ≥ 0.5. To adjust the threshold:
 
-    Prediction: Spam  (spam probability ≈ 0.97)
+    python spam_filter.py "Your message here" -t 0.4
 
-### 4. Evaluate thresholds
+## Web Application
 
-To see how spam recall changes at different cutoffs, run:
+Launch the Streamlit web app:
+
+    python -m streamlit run app.py
+
+Then open the displayed Local URL (e.g., http://localhost:8501) in your browser. Enter a message, adjust the spam threshold slider, and click **Classify** to see the prediction and probability.
+
+## Evaluating Thresholds
+
+To see how different cutoff values affect spam recall:
 
     python eval_threshold.py
 
 Example output:
 
-    Threshold 0.5: spam recall = 0.91
-    Threshold 0.4: spam recall = 0.94
-    Threshold 0.3: spam recall = 0.96
-
-#### Custom threshold
-
-You can adjust the spam cutoff threshold with the `-t` flag (e.g. 0.4 to boost recall):
-
-    python spam_filter.py "Free entry in 2 a wkly comp to win tickets!" -t 0.4
+    Threshold 0.5: spam recall = 0.91  
+    Threshold 0.4: spam recall = 0.94  
+    Threshold 0.3: spam recall = 0.96  
 
 ## Dataset
 
-Dataset source:  
-SMS Spam Collection from the UCI Machine Learning Repository  
+SMS Spam Collection — UCI ML Repository  
 https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection
 
-The file should be named `spam.csv` and contain two columns: label (`ham` or `spam`) and message.  
-Format: **Tab-separated values**
+Format: Tab-separated values with columns:  
+- **label**: `ham` or `spam`  
+- **message**: SMS text content  
+
+Save this file as `spam.csv` in the project root.
 
 ## License
 
