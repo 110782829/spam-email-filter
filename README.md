@@ -16,6 +16,7 @@ spam-email-filter/
 └── README.md            # Project overview
 ```
 
+
 ## How to Use
 
 ### 1. Install dependencies
@@ -37,17 +38,35 @@ This will:
 
 ### 3. Run the spam filter from the command line
 
-Use the trained model to classify a message:
+By default, the script labels as spam if the model probability is ≥ 0.5:
 
     python spam_filter.py "Congratulations! You've won a free prize!"
 
 Expected output:
 
-    Prediction: Spam
+    Prediction: Spam  (spam probability ≈ 0.97)
+
+### 4. Evaluate thresholds
+
+To see how spam recall changes at different cutoffs, run:
+
+    python eval_threshold.py
+
+Example output:
+
+    Threshold 0.5: spam recall = 0.91
+    Threshold 0.4: spam recall = 0.94
+    Threshold 0.3: spam recall = 0.96
+
+#### Custom threshold
+
+You can adjust the spam cutoff threshold with the `-t` flag (e.g. 0.4 to boost recall):
+
+    python spam_filter.py "Free entry in 2 a wkly comp to win tickets!" -t 0.4
 
 ## Dataset
 
-Dataset source:
+Dataset source:  
 SMS Spam Collection from the UCI Machine Learning Repository  
 https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection
 
