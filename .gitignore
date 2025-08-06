@@ -9,3 +9,6 @@ venv/
 *.pkl
 
 .DS_Store
+
+# Streamlit runtime files
+.streamlit/
