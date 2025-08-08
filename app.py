@@ -2,8 +2,8 @@ import streamlit as st
 import joblib
 
 # load the saved model and vectorizer
-model = joblib.load("spam_model.pkl")
-vectorizer = joblib.load("vectorizer.pkl")
+model = joblib.load("models/spam_model.pkl")
+vectorizer = joblib.load("models/vectorizer.pkl")
 
 st.title("📬 Spam Email Filter")
 st.write("Type or paste your message below, adjust the threshold slider, then click **Classify**.")
