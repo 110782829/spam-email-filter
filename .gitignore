@@ -6,7 +6,7 @@ __pycache__/
 venv/
 
 # Ignore model artifacts
-*.pkl
+#*.pkl
 
 .DS_Store
 
